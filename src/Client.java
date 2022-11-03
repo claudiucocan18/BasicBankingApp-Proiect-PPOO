@@ -3,20 +3,25 @@ import java.util.*;
 public class Client {
 
     private String nume;
-    private int[] salariiAnCurent = new int[12];
     private Double sold;
     private boolean contActiv;
+    private String numeBanca;
+
     private Map<Integer,Tranzactie> listaTranzactii = new HashMap<>();
+    private int[] salariiAnCurent = new int[12];
+
+
 
 
     public Client() {
     }
 
-    public Client(String nume, Double sold, boolean contActiv) {
+    public Client(String nume, Double sold, boolean contActiv, String numeBanca) {
         //this.salariiAnCurent = salariiAnCurent;
         this.nume = nume;
         this.sold = sold;
         this.contActiv = contActiv;
+        this.numeBanca=numeBanca;
     }
 
     public String getNume() {
@@ -67,13 +72,24 @@ public class Client {
         this.listaTranzactii = comisioaneClient;
     }
 
+    public String getNumeBanca() {
+        return numeBanca;
+    }
+
+    public void setNumeBanca(String numeBanca) {
+        this.numeBanca = numeBanca;
+    }
+
     @Override
     public String toString() {
         return "Client{" +
-                "salariiAnCurent=" + Arrays.toString(salariiAnCurent) +
+                "nume='" + nume + '\'' +
+                ", salariiAnCurent=" + Arrays.toString(salariiAnCurent) +
                 ", sold=" + sold +
                 ", contActiv=" + contActiv +
                 ", listaTranzactii=" + listaTranzactii +
+                ", numeBanca='" + numeBanca + '\'' +
                 '}';
     }
+
 }

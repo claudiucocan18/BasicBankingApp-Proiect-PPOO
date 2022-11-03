@@ -4,15 +4,15 @@ import java.util.*;
 public class Banca {
 
     private String denumire;
+
     private double[] valoareLunaraDobanda = new double[12];
-    private List<Client> listaClienti = new ArrayList<>();;
+    private List<Client> listaClienti = new ArrayList<>();
 
 
 
 
-    public Banca(String denumire, double[] valoareLunaraDobanda) {
+    public Banca(String denumire) {
         this.denumire = denumire;
-        this.valoareLunaraDobanda = valoareLunaraDobanda;
         this.listaClienti = listaClienti;
     }
 

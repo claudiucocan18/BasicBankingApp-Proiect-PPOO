@@ -7,12 +7,14 @@ public class Tranzactie {
 
 
     private Tip tipTranzactie;
-    private Float suma;
+    private Double suma;
+    private String numeClient;
 
 
-    public Tranzactie(Tip tipTranzactie, Float suma) {
+    public Tranzactie(Tip tipTranzactie, Double suma, String numeClient) {
         this.tipTranzactie = tipTranzactie;
         this.suma = suma;
+        this.numeClient = numeClient;
     }
 
     public Tip getTipTranzactie() {
@@ -23,12 +25,20 @@ public class Tranzactie {
         this.tipTranzactie = tipTranzactie;
     }
 
-    public Float getSuma() {
+    public Double getSuma() {
         return suma;
     }
 
-    public void setSuma(Float suma) {
+    public void setSuma(Double suma) {
         this.suma = suma;
+    }
+
+    public String getNumeClient() {
+        return numeClient;
+    }
+
+    public void setNumeClient(String numeClient) {
+        this.numeClient = numeClient;
     }
 
     @Override
@@ -36,6 +46,7 @@ public class Tranzactie {
         return "Tranzactie{" +
                 "tipTranzactie=" + tipTranzactie +
                 ", suma=" + suma +
+                ", numeClient='" + numeClient + '\'' +
                 '}';
     }
 }
