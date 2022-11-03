@@ -8,7 +8,7 @@ public class Client {
     private String numeBanca;
 
     private Map<Integer,Tranzactie> listaTranzactii = new HashMap<>();
-    private int[] salariiAnCurent = new int[12];
+    private int[] salariiAnCurent = new int[12]; //de adaugat
 
 
 

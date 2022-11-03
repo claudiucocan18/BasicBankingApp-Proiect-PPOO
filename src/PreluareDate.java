@@ -3,19 +3,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Citire {
+public class PreluareDate {
 
-
-
+    List<Banca> listaBanciCitite = new ArrayList<>();
+    List<Client> listaClientiCititi = new ArrayList<>();
+    List<Tranzactie> listaTranzactiiCitite = new ArrayList<>();
 
     public void citireDate(String dateBanci, String dateClienti, String dateTranzactii) throws IOException {
 
-        List<Banca> listaBanciCitite = new ArrayList<>();
-        List<Client> listaClientiCititi = new ArrayList<>();
-        List<Tranzactie> listaTranzactiiCitite = new ArrayList<>();
-
         File myObj;
-
 
         // read banci
         myObj = new File(dateBanci);
@@ -66,11 +62,9 @@ public class Citire {
         inputTranzactii.close();
 
 
-        for(Tranzactie c: listaTranzactiiCitite){
-            System.out.println(c.getSuma());
-        }
-
-
+//        for(Tranzactie c: listaTranzactiiCitite){
+//            System.out.println(c.getSuma());
+//        }
 
 
     }
@@ -83,6 +77,28 @@ public class Citire {
 
         }
         return Tip.RAMBURSARE;
+    }
+
+
+    public void SincronizaredDateInput(){
+
+        for(Banca b : listaBanciCitite){
+            for(Client c :listaClientiCititi){
+                if(c.getNumeBanca().equals(b.getDenumire())){
+                    b.getListaClienti().add(c);
+                }
+            }
+        }
+
+        for(Client c: listaClientiCititi){
+            for(Tranzactie t: listaTranzactiiCitite)
+            {
+                if( t.getNumeClient().equals(c.getNume()) )
+                    c.getListaTranzactii().put((int) (Math.random()*10000), t);
+            }
+        }
+
+
     }
 
 

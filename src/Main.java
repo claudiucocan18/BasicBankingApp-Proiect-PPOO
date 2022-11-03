@@ -13,9 +13,12 @@ public class Main {
 //        Banca Ing = new Banca("Ing",dobanzi);
 //        Client c1 = new Client(2900,true);
 
-        Citire m1 = new Citire();
+        PreluareDate preluareDate = new PreluareDate();
 
-        m1.citireDate("banci.txt","clienti.txt","tranzactii.txt");
+        preluareDate.citireDate("banci.txt","clienti.txt","tranzactii.txt");
+        preluareDate.SincronizaredDateInput();
+
+
     }
 
 

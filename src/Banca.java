@@ -5,7 +5,7 @@ public class Banca {
 
     private String denumire;
 
-    private double[] valoareLunaraDobanda = new double[12];
+    private double[] valoareLunaraDobanda = new double[12]; // de adaugat
     private List<Client> listaClienti = new ArrayList<>();
 
 
