@@ -2,16 +2,37 @@ import java.util.*;
 
 public class Client {
 
+    private String nume;
     private int[] salariiAnCurent = new int[12];
-    private float sold;
+    private Double sold;
     private boolean contActiv;
-    private Map<Tip,Double> comisioaneClient = new HashMap<>();
+    private Map<Integer,Tranzactie> listaTranzactii = new HashMap<>();
 
-    public Client(float sold, boolean contActiv, Map<Tip, Double> comisioaneClient) {
+
+    public Client() {
+    }
+
+    public Client(String nume, Double sold, boolean contActiv) {
         //this.salariiAnCurent = salariiAnCurent;
+        this.nume = nume;
         this.sold = sold;
         this.contActiv = contActiv;
-        this.comisioaneClient = comisioaneClient;
+    }
+
+    public String getNume() {
+        return nume;
+    }
+
+    public void setNume(String nume) {
+        this.nume = nume;
+    }
+
+    public Map<Integer, Tranzactie> getListaTranzactii() {
+        return listaTranzactii;
+    }
+
+    public void setListaTranzactii(Map<Integer, Tranzactie> listaTranzactii) {
+        this.listaTranzactii = listaTranzactii;
     }
 
     public int[] getSalariiAnCurent() {
@@ -22,11 +43,11 @@ public class Client {
         this.salariiAnCurent = salariiAnCurent;
     }
 
-    public float getSold() {
+    public Double getSold() {
         return sold;
     }
 
-    public void setSold(float sold) {
+    public void setSold(Double sold) {
         this.sold = sold;
     }
 
@@ -38,12 +59,12 @@ public class Client {
         this.contActiv = contActiv;
     }
 
-    public Map<Tip, Double> getComisioaneClient() {
-        return comisioaneClient;
+    public Map<Integer, Tranzactie> getComisioaneClient() {
+        return listaTranzactii;
     }
 
-    public void setComisioaneClient(Map<Tip, Double> comisioaneClient) {
-        this.comisioaneClient = comisioaneClient;
+    public void setComisioaneClient(Map<Integer, Tranzactie> comisioaneClient) {
+        this.listaTranzactii = comisioaneClient;
     }
 
     @Override
@@ -52,7 +73,7 @@ public class Client {
                 "salariiAnCurent=" + Arrays.toString(salariiAnCurent) +
                 ", sold=" + sold +
                 ", contActiv=" + contActiv +
-                ", comisioaneClient=" + comisioaneClient +
+                ", listaTranzactii=" + listaTranzactii +
                 '}';
     }
 }

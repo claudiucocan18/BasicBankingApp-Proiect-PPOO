@@ -5,14 +5,17 @@ public class Banca {
 
     private String denumire;
     private double[] valoareLunaraDobanda = new double[12];
+    private List<Client> listaClienti = new ArrayList<>();;
 
-    private List<Client> clienti= new ArrayList<>();;
+
+
 
     public Banca(String denumire, double[] valoareLunaraDobanda) {
         this.denumire = denumire;
         this.valoareLunaraDobanda = valoareLunaraDobanda;
-        this.clienti = clienti;
+        this.listaClienti = listaClienti;
     }
+
 
     public String getDenumire() {
         return denumire;
@@ -30,12 +33,12 @@ public class Banca {
         this.valoareLunaraDobanda = valoareLunaraDobanda;
     }
 
-    public List<Client> getClienti() {
-        return clienti;
+    public List<Client> getListaClienti() {
+        return listaClienti;
     }
 
-    public void setClienti(List<Client> clienti) {
-        this.clienti = clienti;
+    public void setListaClienti(List<Client> listaClienti) {
+        this.listaClienti = listaClienti;
     }
 
     @Override
@@ -43,7 +46,7 @@ public class Banca {
         return "Banca{" +
                 "denumire='" + denumire + '\'' +
                 ", valoareLunaraDobanda=" + Arrays.toString(valoareLunaraDobanda) +
-                ", clienti=" + clienti +
+                ", clienti=" + listaClienti +
                 '}';
     }
 }
