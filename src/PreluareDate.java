@@ -66,8 +66,9 @@ public class PreluareDate {
 //            System.out.println(c.getSuma());
 //        }
 
-
     }
+
+    // convert from int to Tip
     public static Tip tipFromInteger(int x) {
         switch(x) {
             case 0:
@@ -80,10 +81,10 @@ public class PreluareDate {
     }
 
 
-    public void SincronizaredDateInput(){
+    public void SincronizareDateInput(){
 
         for(Banca b : listaBanciCitite){
-            for(Client c :listaClientiCititi){
+            for(Client c : listaClientiCititi){
                 if(c.getNumeBanca().equals(b.getDenumire())){
                     b.getListaClienti().add(c);
                 }
