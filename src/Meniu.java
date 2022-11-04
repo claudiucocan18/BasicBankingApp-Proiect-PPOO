@@ -28,11 +28,40 @@ public class Meniu {
     }
 
     public void afisareDateClient(Client c){
-        System.out.println("Date client:");
+        System.out.println("Nume: "+ c.getNume());
+        System.out.println("Sold: "+ c.getSold());
+        String s;
+
+        if(c.isContActiv())
+            {
+                s = "Activ";
+            }
+        else {
+                s= "Inactiv";
+             }
+
+        System.out.println("Status: "+s);
+
+        System.out.println("Banca:"+c.getNumeBanca());
+
+
     }
+
+
+    public void afisareTranzactii(){
+
+    }
+
+
     public void afisareOptiuniNavigare(){
         System.out.println();
         System.out.println("b - inapoi, c - inchide aplicatia ");
     }
 
+    public void adaugaBanca() {
+        System.out.println("--------------------------------");
+        System.out.println("Adaugare Banca");
+        System.out.println();
+        System.out.println("Adauga denumire");
+    }
 }

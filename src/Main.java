@@ -1,10 +1,7 @@
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.io.Console;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Scanner;
-
-import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
 
 public class Main {
 
@@ -17,8 +14,11 @@ public class Main {
         preluareDate.citireDate("banci.txt","clienti.txt","tranzactii.txt");
         preluareDate.SincronizareDateInput();
 
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         Scanner consoleIn = new Scanner(System.in);
+
+        System.out.println("x - Intrati in aplicatie, c- Parasiti aplicatia");
 
         int consoleLvl = 0;
         while (consoleIn.hasNext()) {
@@ -31,21 +31,33 @@ public class Main {
                         System.out.println();
                         System.out.println("Selectati banca dorita");
 
-                        int indexBanca = consoleIn.nextInt();
-                        System.out.println("--------------------------------");
-                        m1.afisareClienti(preluareDate.
-                                listaBanciCitite.get(indexBanca));
+                        try {
+//                            if(consoleIn.next().equals("+")){
+//                                m1.adaugaBanca();
+//                            }else {
+                                int indexBanca = consoleIn.nextInt();
+                                System.out.println("--------------------------------");
+                                m1.afisareClienti(preluareDate.listaBanciCitite.get(indexBanca));
 
-                        consoleLvl = 1;
-                        m1.afisareOptiuniNavigare();
+                                consoleLvl = 1;
+                                m1.afisareOptiuniNavigare();
+                            }
+//  }
+
+                        catch (Exception e){
+
+                            System.out.println("Ati introdus o optiune invalida");
+                            System.out.println("Introduceti orice tasta pentru a va intoarce");
+                        }
+
                         break;
                     }
                     default:
-                        System.out.println("A intrat pe default");
+                        System.out.println("Entered default");
 
                     case 1:
-
-                        System.out.println("Clienti");
+                        int indexClient = consoleIn.nextInt();
+                        m1.afisareDateClient(preluareDate.listaClientiCititi.get(indexClient));
 
                 }
 
