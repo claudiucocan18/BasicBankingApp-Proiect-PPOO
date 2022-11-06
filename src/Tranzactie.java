@@ -6,12 +6,14 @@ enum Tip {INCASARE,PLATA,RAMBURSARE}
 public class Tranzactie {
 
 
+
     private Tip tipTranzactie;
     private Double suma;
     private String numeClient;
 
 
     public Tranzactie(Tip tipTranzactie, Double suma, String numeClient) {
+
         this.tipTranzactie = tipTranzactie;
         this.suma = suma;
         this.numeClient = numeClient;
@@ -43,10 +45,9 @@ public class Tranzactie {
 
     @Override
     public String toString() {
-        return "Tranzactie{" +
-                "tipTranzactie=" + tipTranzactie +
-                ", suma=" + suma +
-                ", numeClient='" + numeClient + '\'' +
+        return "Tranzactie de " +
+                "tip " + tipTranzactie +
+                ", Suma: " + suma  +
                 '}';
     }
 }

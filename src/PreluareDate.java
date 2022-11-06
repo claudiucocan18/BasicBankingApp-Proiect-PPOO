@@ -1,13 +1,12 @@
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class PreluareDate {
 
     List<Banca> listaBanciCitite = new ArrayList<>();
     List<Client> listaClientiCititi = new ArrayList<>();
     List<Tranzactie> listaTranzactiiCitite = new ArrayList<>();
+    Map<Integer, Tranzactie> mapTranzactii = new HashMap<>();
 
     public void citireDate(String dateBanci, String dateClienti, String dateTranzactii) throws IOException {
 
@@ -51,12 +50,14 @@ public class PreluareDate {
 
         while(inputTranzactii.hasNext()) {
 
+            int id = inputTranzactii.nextInt();
             int tipTranzactieIndex = inputTranzactii.nextInt();
             Double suma = inputTranzactii.nextDouble();
             String numeClientTranzactie = inputTranzactii.next();
 
             Tranzactie t1 = new Tranzactie(tipFromInteger(tipTranzactieIndex),suma, numeClientTranzactie);
-            listaTranzactiiCitite.add(t1);
+            //listaTranzactiiCitite.add(t1);
+            mapTranzactii.put(id,t1);
 
         }
         inputTranzactii.close();
@@ -92,10 +93,11 @@ public class PreluareDate {
         }
 
         for(Client c: listaClientiCititi){
-            for(Tranzactie t: listaTranzactiiCitite)
+            for(Map.Entry<Integer, Tranzactie> mt : mapTranzactii.entrySet())
             {
-                if( t.getNumeClient().equals(c.getNume()) )
-                    c.getListaTranzactii().put((int) (Math.random()*10000), t);
+
+                if( mt.getValue().equals(c.getNume()) )
+                    c.getListaTranzactii().put(mt.getKey(),mt.getValue());
             }
         }
 

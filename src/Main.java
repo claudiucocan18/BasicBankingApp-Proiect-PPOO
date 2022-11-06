@@ -20,7 +20,7 @@ public class Main {
 
         System.out.println("x - Intrati in aplicatie, c- Parasiti aplicatia");
 
-        int consoleLvl = 0;
+        //int consoleLvl = 0;
 
 //        while (1 == 1) {
 //
@@ -78,7 +78,7 @@ public class Main {
 //        }
 
         m1.afisareMeniuBanci(preluareDate);
-        //m1.afisareMeniuClienti(preluareDate);
+
             }
 //afara main
 

@@ -10,9 +10,6 @@ public class Client {
     private Map<Integer,Tranzactie> listaTranzactii = new HashMap<>();
     private int[] salariiAnCurent = new int[12]; //de adaugat
 
-
-
-
     public Client() {
     }
 
