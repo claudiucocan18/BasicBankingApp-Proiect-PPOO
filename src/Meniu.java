@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -36,8 +35,12 @@ boolean checkBack = false;
             afisareMeniuClienti(preluareDate);
 
         } catch (Exception e) {
-            if(consoleIn.next().equals("c"))
+            if(consoleIn.next().equals("c")){
+
+                System.out.println("Aplicatia se inchide...");
                 return;
+            }
+
             else {
                 System.out.println("Ati introdus o optiune invalida");
 
@@ -125,12 +128,18 @@ public void afisareMeniuClienti(PreluareDate preluareDate) throws IOException {
         System.out.println();
         Client c = preluareDate.listaClientiCititi.get(indexClient);
 
-        for(Map.Entry <Integer,Tranzactie> mt : preluareDate.mapTranzactii.entrySet()){
-            if(c.getNume().equals(mt.getValue().getNumeClient())){
-                System.out.println(i + ") "+"Id: "+ mt.getKey() +" "+ mt.getValue());
-                i++;
+        boolean existaTranzactii = false;
+
+            for (Map.Entry<Integer, Tranzactie> mt : preluareDate.mapTranzactiiCitite.entrySet()) {
+                if (c.getNume().equals(mt.getValue().getExpeditor())) {
+                    System.out.println(i + ") " + "Id: " + mt.getKey() + " " + mt.getValue());
+                    i++;
+                    existaTranzactii=true;
+                }
             }
-        }
+
+            if (existaTranzactii == false)
+                System.out.println("Nu exista tranzactii");
 
 
         meniufinal();
@@ -138,25 +147,91 @@ public void afisareMeniuClienti(PreluareDate preluareDate) throws IOException {
 
     public void meniufinal() throws IOException {
 
-        System.out.println("Selecteaza o tranzactie");
+        System.out.println();
+        System.out.println("+t Realizeaza o tranzactie, +c Aplica pentru un credit");
+        System.out.println("b - Inapoi, c- Parasiti aplicatia");
+
         Scanner consoleIn = new Scanner(System.in);
         String input = consoleIn.next();
 
+
         switch (input){
             case "+t":
-                adaugaTranzactie(indexBanca, indexClient);
+                adaugaTranzactie(indexClient);
+                break;
 
             case "+c":
                 adaugaCredit(indexBanca, indexClient);
+                break;
+
+            default:
+                NavigareGenerala(input,3);
+                break;
         }
 
-        NavigareGenerala("2",4);
     }
 
     private void adaugaCredit(int indexBanca, int indexClient) {
     }
 
-    private void adaugaTranzactie(int indexBanca, int indexClient) {
+    private void adaugaTranzactie( int indexClient) throws IOException {
+
+        System.out.println("Date tranzactie noua:");
+        Scanner consoleIn = new Scanner(System.in);
+
+        String numeClient = preluareDate.listaClientiCititi.get(indexClient).getNume();
+        Client client = preluareDate.listaClientiCititi.get(indexClient);
+
+        try {
+            System.out.print("Suma: ");
+            Double suma = consoleIn.nextDouble();
+            System.out.println();
+
+            System.out.print("Destinatar: ");
+            String numeDestinatar = consoleIn.next();
+            System.out.println();
+
+            if (!numeDestinatar.equals(client.getNume())) {
+
+                Client destinatar = null;
+                for (Client c : preluareDate.listaClientiCititi) {
+                    if (c.getNume().equals(numeDestinatar))
+                        destinatar = new Client(c.getNume(), c.getSold(), c.isContActiv(), c.getNumeBanca());
+                }
+
+                if (destinatar != null) {
+
+                    destinatar.setSold(client.getSold() + suma);
+
+                }
+
+                client.setSold(client.getSold() - suma);
+
+                Tranzactie tranzactie = new Tranzactie(Tip.PLATA, suma, numeClient, numeDestinatar);
+                Tranzactie tranzactieInversa = new Tranzactie(Tip.INCASARE, suma, numeDestinatar, numeClient);
+
+                //int idTranzactie = (int) (1000+Math.random() * 1000);
+                preluareDate.mapTranzactiiCitite.put((int) (1000 + Math.random() * 1000), tranzactie);
+                preluareDate.mapTranzactiiCitite.put((int) (1000 + Math.random() * 1000), tranzactieInversa);
+
+            } else {
+                System.out.println("Destinatarul nu poate fi acelasi cu expeditorul");
+                System.out.println("Introduceti datele corecte");
+                adaugaTranzactie(indexClient);
+            }
+        }
+        catch (Exception e){
+
+            System.out.println("Datele introduse sunt incorecte. Reincercati...");
+            adaugaTranzactie(indexClient);
+
+        }
+
+        System.out.println("Tranzactie realizata cu succes!");
+        System.out.println();
+        System.out.println("b - Inapoi, c- Parasiti aplicatia");
+        NavigareGenerala(consoleIn.next(),4);
+
     }
 
 
@@ -211,6 +286,10 @@ public void afisareMeniuClienti(PreluareDate preluareDate) throws IOException {
                         afisareMeniuClienti(preluareDate);
                         checkBack = true;
                         break;
+
+                    case 4:
+                        afisareTranzactii(indexClient);
+                        meniufinal();
                     default:
                         System.out.println("Nivelul este necunoscut");
                         break;

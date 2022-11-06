@@ -12,7 +12,7 @@ public class Main {
         Meniu m1 = new Meniu();
 //
         preluareDate.citireDate("banci.txt", "clienti.txt", "tranzactii.txt");
-        preluareDate.SincronizareDateInput();
+        preluareDate.SincronizareDate();
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 

@@ -5,8 +5,8 @@ public class PreluareDate {
 
     List<Banca> listaBanciCitite = new ArrayList<>();
     List<Client> listaClientiCititi = new ArrayList<>();
-    List<Tranzactie> listaTranzactiiCitite = new ArrayList<>();
-    Map<Integer, Tranzactie> mapTranzactii = new HashMap<>();
+    //List<Tranzactie> listaTranzactiiCitite = new ArrayList<>();
+    Map<Integer, Tranzactie> mapTranzactiiCitite = new HashMap<>();
 
     public void citireDate(String dateBanci, String dateClienti, String dateTranzactii) throws IOException {
 
@@ -54,10 +54,11 @@ public class PreluareDate {
             int tipTranzactieIndex = inputTranzactii.nextInt();
             Double suma = inputTranzactii.nextDouble();
             String numeClientTranzactie = inputTranzactii.next();
+            String destinatarTranzactie = inputTranzactii.next();
 
-            Tranzactie t1 = new Tranzactie(tipFromInteger(tipTranzactieIndex),suma, numeClientTranzactie);
+            Tranzactie t1 = new Tranzactie(tipFromInteger(tipTranzactieIndex),suma, numeClientTranzactie, destinatarTranzactie);
             //listaTranzactiiCitite.add(t1);
-            mapTranzactii.put(id,t1);
+            mapTranzactiiCitite.put(id,t1);
 
         }
         inputTranzactii.close();
@@ -81,8 +82,14 @@ public class PreluareDate {
         return Tip.RAMBURSARE;
     }
 
+    public void ClearListe(){
 
-    public void SincronizareDateInput(){
+        listaClientiCititi.clear();
+        listaBanciCitite.clear();
+        mapTranzactiiCitite.clear();
+    }
+
+    public void SincronizareDate(){
 
         for(Banca b : listaBanciCitite){
             for(Client c : listaClientiCititi){
@@ -93,7 +100,7 @@ public class PreluareDate {
         }
 
         for(Client c: listaClientiCititi){
-            for(Map.Entry<Integer, Tranzactie> mt : mapTranzactii.entrySet())
+            for(Map.Entry<Integer, Tranzactie> mt : mapTranzactiiCitite.entrySet())
             {
 
                 if( mt.getValue().equals(c.getNume()) )

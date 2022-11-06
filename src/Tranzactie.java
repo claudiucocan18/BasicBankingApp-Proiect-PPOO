@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-
 enum Tip {INCASARE,PLATA,RAMBURSARE}
 
 public class Tranzactie {
@@ -9,14 +6,15 @@ public class Tranzactie {
 
     private Tip tipTranzactie;
     private Double suma;
-    private String numeClient;
+    private String expeditor;
+    private String destinatar;
 
 
-    public Tranzactie(Tip tipTranzactie, Double suma, String numeClient) {
-
+    public Tranzactie(Tip tipTranzactie, Double suma, String expeditor, String destinatar) {
         this.tipTranzactie = tipTranzactie;
         this.suma = suma;
-        this.numeClient = numeClient;
+        this.expeditor = expeditor;
+        this.destinatar = destinatar;
     }
 
     public Tip getTipTranzactie() {
@@ -35,19 +33,27 @@ public class Tranzactie {
         this.suma = suma;
     }
 
-    public String getNumeClient() {
-        return numeClient;
+    public String getExpeditor() {
+        return expeditor;
     }
 
-    public void setNumeClient(String numeClient) {
-        this.numeClient = numeClient;
+    public void setExpeditor(String expeditor) {
+        this.expeditor = expeditor;
     }
 
     @Override
     public String toString() {
-        return "Tranzactie de " +
-                "tip " + tipTranzactie +
-                ", Suma: " + suma  +
-                '}';
+
+        if(this.tipTranzactie.equals(Tip.PLATA))
+            return "Tranzactie de " +
+                    "tip " + tipTranzactie +
+                    ", Suma: " + suma+
+                    ", Catre " + destinatar;
+        else {
+            return "Tranzactie de " +
+                    "tip " + tipTranzactie +
+                    ", Suma: " + suma+
+                    ", De la " + destinatar;
+        }
     }
 }
