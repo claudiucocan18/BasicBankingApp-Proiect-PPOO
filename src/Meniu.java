@@ -176,15 +176,13 @@ public void afisareMeniuClienti(PreluareDate preluareDate) throws IOException {
 
     private void adaugaCredit(int indexBanca, int indexClient) {
 
-        Banca banca = preluareDate.listaBanciCitite.get(indexBanca);
-        Credit credit = new Credit();
-        Client client= preluareDate.listaClientiCititi.get(indexClient);
-        Scanner consoleIn = new Scanner(System.in);
-
-        credit.setId((int) (1000 + Math.random() * 1000));
       try {
 
-
+          Banca banca = preluareDate.listaBanciCitite.get(indexBanca);
+          Credit credit = new Credit();
+          Client client= preluareDate.listaClientiCititi.get(indexClient);
+          Scanner consoleIn = new Scanner(System.in);
+          credit.setId((int) (1000 + Math.random() * 1000));
           System.out.println("Ce suma de bani doriti sa obtineti?");
           credit.setSuma(consoleIn.nextDouble());
 
@@ -198,14 +196,18 @@ public void afisareMeniuClienti(PreluareDate preluareDate) throws IOException {
 
           if (rataLunara <= Arrays.stream(client.getSalariiAnCurent()).sum() / 24) {
               System.out.println("Credit aprobat");
+              preluareDate.listaCredite.add(credit);
           }
       }
       catch (Exception e){
 
+              System.out.println("Datele introduse sunt incorecte. Reincercati...");
+              adaugaCredit(indexBanca,indexClient);
+
+          }
+
       }
 
-
-    }
 
     private void adaugaTranzactie( int indexClient) throws IOException {
 
