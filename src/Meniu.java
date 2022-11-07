@@ -1,4 +1,7 @@
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -172,6 +175,36 @@ public void afisareMeniuClienti(PreluareDate preluareDate) throws IOException {
     }
 
     private void adaugaCredit(int indexBanca, int indexClient) {
+
+        Banca banca = preluareDate.listaBanciCitite.get(indexBanca);
+        Credit credit = new Credit();
+        Client client= preluareDate.listaClientiCititi.get(indexClient);
+        Scanner consoleIn = new Scanner(System.in);
+
+        credit.setId((int) (1000 + Math.random() * 1000));
+      try {
+
+
+          System.out.println("Ce suma de bani doriti sa obtineti?");
+          credit.setSuma(consoleIn.nextDouble());
+
+          System.out.println("In cat timp doriti sa restituiti imprumutul? (luni)");
+          credit.setNrRate(consoleIn.nextInt());
+          credit.setNumeClient(client.getNume());
+
+          int lunaCurenta;
+          lunaCurenta = LocalDate.now().getMonthValue();
+          double rataLunara = credit.suma / credit.nrRate * banca.getValoareLunaraDobanda()[lunaCurenta];
+
+          if (rataLunara <= Arrays.stream(client.getSalariiAnCurent()).sum() / 24) {
+              System.out.println("Credit aprobat");
+          }
+      }
+      catch (Exception e){
+
+      }
+
+
     }
 
     private void adaugaTranzactie( int indexClient) throws IOException {
@@ -229,8 +262,9 @@ public void afisareMeniuClienti(PreluareDate preluareDate) throws IOException {
 
         System.out.println("Tranzactie realizata cu succes!");
         System.out.println();
-        System.out.println("b - Inapoi, c- Parasiti aplicatia");
-        NavigareGenerala(consoleIn.next(),4);
+        afisareDateClient(indexClient);
+        //System.out.println("b - Inapoi, c- Parasiti aplicatia");
+        //NavigareGenerala(consoleIn.next(),4);
 
     }
 

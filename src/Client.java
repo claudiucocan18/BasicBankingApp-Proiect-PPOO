@@ -8,7 +8,9 @@ public class Client {
     private String numeBanca;
 
     private Map<Integer,Tranzactie> listaTranzactii = new HashMap<>();
-    private int[] salariiAnCurent = new int[12]; //de adaugat
+    private static int[] salariiAnCurent =
+            {3000,3000,3000,3000,4200,4200,4200,4200,4200,4200,4200,4200};//new int[12]; //de adaugat
+
 
     public Client() {
     }
@@ -61,13 +63,6 @@ public class Client {
         this.contActiv = contActiv;
     }
 
-    public Map<Integer, Tranzactie> getComisioaneClient() {
-        return listaTranzactii;
-    }
-
-    public void setComisioaneClient(Map<Integer, Tranzactie> comisioaneClient) {
-        this.listaTranzactii = comisioaneClient;
-    }
 
     public String getNumeBanca() {
         return numeBanca;
