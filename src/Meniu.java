@@ -97,6 +97,7 @@ public void afisareMeniuClienti(PreluareDate preluareDate) throws IOException {
         System.out.println("--------------------------------");
         System.out.println("--------------------------------");
 
+        System.out.println("\nDetalii client:\n");
         System.out.println("Nume: "+ c.getNume());
         System.out.println("Sold: "+ c.getSold());
         String s;
@@ -143,6 +144,14 @@ public void afisareMeniuClienti(PreluareDate preluareDate) throws IOException {
 
             if (existaTranzactii == false)
                 System.out.println("Nu exista tranzactii");
+
+        System.out.println();
+        System.out.println("Credite:");
+        System.out.println();
+        for (Credit credit : preluareDate.listaCredite) {
+            System.out.println(credit);
+
+        }
 
 
         meniufinal();
@@ -192,11 +201,24 @@ public void afisareMeniuClienti(PreluareDate preluareDate) throws IOException {
 
           int lunaCurenta;
           lunaCurenta = LocalDate.now().getMonthValue();
-          double rataLunara = credit.suma / credit.nrRate * banca.getValoareLunaraDobanda()[lunaCurenta];
+          double rataLunara = credit.suma / credit.nrRate *(1 + banca.getValoareLunaraDobanda()[lunaCurenta]/100);
 
           if (rataLunara <= Arrays.stream(client.getSalariiAnCurent()).sum() / 24) {
               System.out.println("Credit aprobat");
+              credit.setRataLunara(rataLunara);
               preluareDate.listaCredite.add(credit);
+              System.out.println();
+              System.out.println("b - Inapoi, c- Parasiti aplicatia");
+
+          }
+
+          else{
+              System.out.println("Nu sunteti eligibil pentru acordarea creditului solicitat");
+              System.out.println();System.out.println();
+              System.out.println("Reincercare...");
+              System.out.println();
+              adaugaCredit(indexBanca,indexClient);
+
           }
       }
       catch (Exception e){
@@ -338,7 +360,7 @@ public void afisareMeniuClienti(PreluareDate preluareDate) throws IOException {
                 String s = consoleIn.next();
                 System.out.println("--------------------------------");
                 System.out.println("Optiune inexistenta");
-                System.out.println("b - Inapoi, c- Parasiti aplicatia");
+                System.out.println("b - Inapoi, c - Parasiti aplicatia");
                 System.out.println("--------------------------------");
                 NavigareGenerala(s,nivel);
                 break;

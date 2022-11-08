@@ -4,12 +4,14 @@ public class Credit {
     int nrRate;
     String numeClient;
     Double suma;
+    Double rataLunara;
 
     public Credit(){
         this.id = 0;
         this.nrRate = 0;
         this.numeClient="";
         this.suma = 0.0;
+        this.rataLunara=0.0;
 
     }
 
@@ -18,6 +20,7 @@ public class Credit {
         this.nrRate = nrRate;
         this.numeClient = numeClient;
         this.suma = suma;
+        this.rataLunara=0.0;
     }
 
 
@@ -53,6 +56,14 @@ public class Credit {
         this.suma = suma;
     }
 
+    public Double getRataLunara() {
+        return rataLunara;
+    }
+
+    public void setRataLunara(Double rataLunara) {
+        this.rataLunara = rataLunara;
+    }
+
     @Override
     public String toString() {
         return "Credit{" +
@@ -60,6 +71,7 @@ public class Credit {
                 ", nrRate=" + nrRate +
                 ", numeClient='" + numeClient + '\'' +
                 ", suma=" + suma +
+                ", rataLunara=" + rataLunara +
                 '}';
     }
 }

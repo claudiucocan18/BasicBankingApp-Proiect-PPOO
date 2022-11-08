@@ -18,7 +18,7 @@ public class Main {
 
         Scanner consoleIn = new Scanner(System.in);
 
-        System.out.println("x - Intrati in aplicatie, c- Parasiti aplicatia");
+        System.out.println("x - Intrati in aplicatie, c - Parasiti aplicatia");
 
         //int consoleLvl = 0;
 
