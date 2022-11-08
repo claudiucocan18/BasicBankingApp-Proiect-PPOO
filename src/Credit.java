@@ -66,12 +66,9 @@ public class Credit {
 
     @Override
     public String toString() {
-        return "Credit{" +
-                "id=" + id +
+        return  "Id: " + id +
                 ", nrRate=" + nrRate +
-                ", numeClient='" + numeClient + '\'' +
-                ", suma=" + suma +
-                ", rataLunara=" + rataLunara +
-                '}';
+                ", Suma imprumutata " + suma +
+                ", Rata lunara:" + rataLunara ;
     }
 }

@@ -148,9 +148,15 @@ public void afisareMeniuClienti(PreluareDate preluareDate) throws IOException {
         System.out.println();
         System.out.println("Credite:");
         System.out.println();
+        int ic =0;
         for (Credit credit : preluareDate.listaCredite) {
             System.out.println(credit);
+            ic++;
 
+        }
+
+        if(ic==0){
+            System.out.println("Nu exista credite");
         }
 
 
@@ -177,13 +183,19 @@ public void afisareMeniuClienti(PreluareDate preluareDate) throws IOException {
                 break;
 
             default:
+
+                System.out.println("Ati introdus o optiune invalida");
+                System.out.println("Introduceti orice tasta");
+               // meniufinal();
                 NavigareGenerala(input,3);
+                //afisareDateClient(indexClient);
+                //System.out.println("In pasul anterior s-a introdus o optiune invalida");
                 break;
         }
 
     }
 
-    private void adaugaCredit(int indexBanca, int indexClient) {
+    private void adaugaCredit(int indexBanca, int indexClient) throws IOException {
 
       try {
 
@@ -224,7 +236,9 @@ public void afisareMeniuClienti(PreluareDate preluareDate) throws IOException {
       catch (Exception e){
 
               System.out.println("Datele introduse sunt incorecte. Reincercati...");
-              adaugaCredit(indexBanca,indexClient);
+              //adaugaCredit(indexBanca,indexClient);
+              afisareDateClient(indexClient);
+              afisareMeniuClienti(preluareDate);
 
           }
 
@@ -280,7 +294,9 @@ public void afisareMeniuClienti(PreluareDate preluareDate) throws IOException {
         catch (Exception e){
 
             System.out.println("Datele introduse sunt incorecte. Reincercati...");
-            adaugaTranzactie(indexClient);
+            //adaugaTranzactie(indexClient);
+            afisareDateClient(indexClient);
+            afisareMeniuClienti(preluareDate);
 
         }
 
@@ -360,9 +376,26 @@ public void afisareMeniuClienti(PreluareDate preluareDate) throws IOException {
                 String s = consoleIn.next();
                 System.out.println("--------------------------------");
                 System.out.println("Optiune inexistenta");
-                System.out.println("b - Inapoi, c - Parasiti aplicatia");
-                System.out.println("--------------------------------");
-                NavigareGenerala(s,nivel);
+               // System.out.println("b - Inapoi, c - Parasiti aplicatia");
+               // System.out.println("--------------------------------");
+
+                switch (nivel){
+                    case 2:
+                    {
+                        afisareListaClienti(indexBanca);
+                        afisareMeniuClienti(preluareDate);
+                        break;
+                    }
+                    case 3:
+                    {
+                        afisareDateClient(indexClient);
+                        meniufinal();
+                        break;
+                    }
+
+                    default: NavigareGenerala(s,nivel);
+                }
+                //NavigareGenerala(s,nivel);
                 break;
             }
 
