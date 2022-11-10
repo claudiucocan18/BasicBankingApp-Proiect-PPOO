@@ -1,4 +1,3 @@
-import java.io.Console;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -160,7 +159,7 @@ public void afisareMeniuClienti(PreluareDate preluareDate) throws IOException {
         System.out.println("Credite:");
         System.out.println();
         int ic =0;
-        for (Credit credit : preluareDate.listaCredite) {
+        for (Credit credit : preluareDate.listaCrediteCitite) {
             System.out.println(credit);
             ic++;
 
@@ -303,7 +302,7 @@ public void afisareMeniuClienti(PreluareDate preluareDate) throws IOException {
           if (rataLunara <= Arrays.stream(client.getSalariiAnCurent()).sum() / 24) {
               System.out.println("Credit aprobat");
               credit.setRataLunara(rataLunara);
-              preluareDate.listaCredite.add(credit);
+              preluareDate.listaCrediteCitite.add(credit);
               System.out.println();
               System.out.println("b - Inapoi, c- Parasiti aplicatia");
 
@@ -519,7 +518,7 @@ public void autoSaveFisiere(){
         }
 
 
-        for(Credit credit : preluareDate.listaCredite) {
+        for(Credit credit : preluareDate.listaCrediteCitite) {
             writerCredite.write(credit.writeToFile()+"\n");
         }
 
