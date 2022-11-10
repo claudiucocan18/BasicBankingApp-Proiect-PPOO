@@ -1,7 +1,8 @@
+import java.io.Console;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -41,7 +42,8 @@ boolean checkBack = false;
             if(consoleIn.next().equals("c")){
 
                 System.out.println("Aplicatia se inchide...");
-                return;
+                System.exit(0);
+                //return;
             }
 
             else {
@@ -58,14 +60,23 @@ boolean checkBack = false;
 
 public void afisareMeniuClienti(PreluareDate preluareDate) throws IOException {
 
-    System.out.println("Selectati clientul dorit");
+        if(preluareDate.listaBanciCitite.get(indexBanca).getListaClienti().isEmpty())
+        {
+            System.out.println("Nu exista clienti pentru aceasta banca");
+
+        }
+        else {System.out.println("\nSelectati clientul dorit");}
+
     System.out.println("b - Inapoi, c- Parasiti aplicatia");
     Scanner consoleIn = new Scanner(System.in);
     String primit = consoleIn.next();
     try {
 
         indexClient = Integer.parseInt(primit);
-        this.afisareDateClient(indexClient);
+        if(preluareDate.listaClientiCititi.get(indexClient).getNumeBanca().equals(preluareDate.listaBanciCitite.get(indexBanca).getDenumire())) {
+            this.afisareDateClient(indexClient);
+        }
+        //else throw new Exception("34t334t");
     }
 
     catch (Exception e){
@@ -81,11 +92,11 @@ public void afisareMeniuClienti(PreluareDate preluareDate) throws IOException {
 
     public void afisareListaClienti(int indexBanca) throws IOException {
         int i = 0;
-        Banca banca= preluareDate.listaBanciCitite.get(indexBanca);
+        Banca banca = preluareDate.listaBanciCitite.get(indexBanca);
         System.out.println("--------------------------------");
         System.out.println("Clienti:");
         for (Client client : banca.getListaClienti()) {
-
+        //for (Client client : preluareDate.listaClientiCititi) {
             System.out.println(i+") "+client.getNume());
             i++;
         }
@@ -167,7 +178,7 @@ public void afisareMeniuClienti(PreluareDate preluareDate) throws IOException {
 
         System.out.println();
         System.out.println("+t Realizeaza o tranzactie, +c Aplica pentru un credit");
-        System.out.println("b - Inapoi, c- Parasiti aplicatia");
+        System.out.println("b - Inapoi, c- Parasiti aplicatia, e - Modificati detaliile contului");
 
         Scanner consoleIn = new Scanner(System.in);
         String input = consoleIn.next();
@@ -182,6 +193,9 @@ public void afisareMeniuClienti(PreluareDate preluareDate) throws IOException {
                 adaugaCredit(indexBanca, indexClient);
                 break;
 
+            case "e":
+                modificareDateClient(indexClient);
+
             default:
 
                 System.out.println("Ati introdus o optiune invalida");
@@ -194,6 +208,77 @@ public void afisareMeniuClienti(PreluareDate preluareDate) throws IOException {
         }
 
     }
+
+    private void modificareDateClient(int indexClient) throws IOException {
+
+        System.out.println("1) Modifica nume");
+        System.out.println("2) Inactiveaza contul");
+        System.out.println("\nb - Inapoi, c- Parasiti aplicatia");
+
+        Client client = preluareDate.listaClientiCititi.get(indexClient);
+
+        Scanner consoleIn = new Scanner(System.in);
+        String primit = consoleIn.next();
+
+        switch (primit){
+            case "1":
+                System.out.println("Introdu noul nume:");
+                String numeNouClient= consoleIn.next();
+
+                for(Map.Entry<Integer, Tranzactie> mt : preluareDate.mapTranzactiiCitite.entrySet())
+                {
+                    if( mt.getValue().getExpeditor().equals(preluareDate.listaClientiCititi.get(indexClient).getNume()))
+                              mt.getValue().setExpeditor(numeNouClient);
+                    if(mt.getValue().getDestinatar().equals(preluareDate.listaClientiCititi.get(indexClient).getNume()))
+                        mt.getValue().setDestinatar(numeNouClient);
+
+                }
+
+                preluareDate.listaClientiCititi.get(indexClient).setNume(numeNouClient);
+                System.out.println("Numele a fost modificat");
+                afisareDateClient(indexClient);
+                meniufinal();
+                break;
+
+            case "2":
+                preluareDate.listaClientiCititi.get(indexClient).setContActiv(false);
+                System.out.println("Contul a fost inactivat");
+
+                System.out.println("Doriti sa stergeti contul definitiv? Aceasta actiune este ireversibila (y/n)");
+                String raspuns = consoleIn.next();
+                switch (raspuns){
+                    case "y":
+
+
+                        preluareDate.listaClientiCititi.remove(indexClient);
+                        preluareDate.listaBanciCitite.get(indexBanca).getListaClienti().remove(indexClient);
+                        System.out.println("Contul a fost sters");
+                        afisareListaClienti(indexBanca);
+                        //afisareDateClient(indexClient);
+                        afisareMeniuClienti(preluareDate);
+
+
+                    default:
+                        System.out.println("Contul de client a fost doar inactivat");
+                        afisareDateClient(indexClient);
+                        meniufinal();
+                }
+                afisareDateClient(indexClient);
+                meniufinal();
+                break;
+
+            default:
+                System.out.println("Optiune invalida. Introduceti orice tasta pentru a va intoarce.");
+                NavigareGenerala(primit,3);
+                break;
+
+
+        }
+
+
+
+    }
+
 
     private void adaugaCredit(int indexBanca, int indexClient) throws IOException {
 
@@ -276,14 +361,21 @@ public void afisareMeniuClienti(PreluareDate preluareDate) throws IOException {
 
                 }
 
-                client.setSold(client.getSold() - suma);
 
-                Tranzactie tranzactie = new Tranzactie(Tip.PLATA, suma, numeClient, numeDestinatar);
-                Tranzactie tranzactieInversa = new Tranzactie(Tip.INCASARE, suma, numeDestinatar, numeClient);
+                if( client.getSold() >= suma ) {
+                    client.setSold(client.getSold() - suma);
 
-                //int idTranzactie = (int) (1000+Math.random() * 1000);
-                preluareDate.mapTranzactiiCitite.put((int) (1000 + Math.random() * 1000), tranzactie);
-                preluareDate.mapTranzactiiCitite.put((int) (1000 + Math.random() * 1000), tranzactieInversa);
+                    Tranzactie tranzactie = new Tranzactie(Tip.PLATA, suma, numeClient, numeDestinatar);
+                    Tranzactie tranzactieInversa = new Tranzactie(Tip.INCASARE, suma, numeDestinatar, numeClient);
+
+                    //int idTranzactie = (int) (1000+Math.random() * 1000);
+                    preluareDate.mapTranzactiiCitite.put((int) (1000 + Math.random() * 1000), tranzactie);
+                    preluareDate.mapTranzactiiCitite.put((int) (1000 + Math.random() * 1000), tranzactieInversa);
+                }
+                else{
+                    System.out.println("Fonduri insuficiente. Reincercati...");
+                    adaugaTranzactie(indexClient);
+                }
 
             } else {
                 System.out.println("Destinatarul nu poate fi acelasi cu expeditorul");
@@ -324,7 +416,8 @@ public void afisareMeniuClienti(PreluareDate preluareDate) throws IOException {
         switch (consoleIn.next()){
             case "c": {
                 System.out.println("Aplicatia se inchide...");
-                return;
+                System.exit(0);
+                // return;
             }
 
             default:
@@ -346,7 +439,7 @@ public void afisareMeniuClienti(PreluareDate preluareDate) throws IOException {
             case "c": {
                 System.out.println("Aplicatia se inchide...");
                 checkClose = true;
-                return;
+                System.exit(0);
 
             }
             case "b": {
@@ -361,9 +454,9 @@ public void afisareMeniuClienti(PreluareDate preluareDate) throws IOException {
                         checkBack = true;
                         break;
 
-                    case 4:
-                        afisareTranzactii(indexClient);
-                        meniufinal();
+//                    case 4:
+//                        afisareTranzactii(indexClient);
+//                        meniufinal();
                     default:
                         System.out.println("Nivelul este necunoscut");
                         break;
@@ -403,6 +496,17 @@ public void afisareMeniuClienti(PreluareDate preluareDate) throws IOException {
 
     }
 
+public void autoSaveFisiere(){
+    try {
+        FileWriter myWriter = new FileWriter("filename.txt");
+        myWriter.write("Files in Java might be tricky, but it is fun enough!");
+        myWriter.close();
+        System.out.println("Successfully wrote to the file.");
+    } catch (IOException e) {
+        System.out.println("An error occurred.");
+        e.printStackTrace();
+    }
 
+}
 
 }

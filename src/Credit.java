@@ -1,3 +1,5 @@
+import java.text.DecimalFormat;
+
 public class Credit {
 
     int id;
@@ -66,9 +68,10 @@ public class Credit {
 
     @Override
     public String toString() {
+        DecimalFormat df = new DecimalFormat("#.##");
         return  "Id: " + id +
-                ", nrRate=" + nrRate +
+                ", Numar de rate " + nrRate +
                 ", Suma imprumutata " + suma +
-                ", Rata lunara:" + rataLunara ;
+                ", Rata lunara " + df.format(rataLunara) + " RON" ;
     }
 }

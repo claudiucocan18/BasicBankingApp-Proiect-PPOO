@@ -41,6 +41,14 @@ public class Tranzactie {
         this.expeditor = expeditor;
     }
 
+    public String getDestinatar() {
+        return destinatar;
+    }
+
+    public void setDestinatar(String destinatar) {
+        this.destinatar = destinatar;
+    }
+
     @Override
     public String toString() {
 
