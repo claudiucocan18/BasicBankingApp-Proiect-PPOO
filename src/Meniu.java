@@ -439,6 +439,7 @@ public void afisareMeniuClienti(PreluareDate preluareDate) throws IOException {
             case "c": {
                 System.out.println("Aplicatia se inchide...");
                 checkClose = true;
+                autoSaveFisiere();
                 System.exit(0);
 
             }
@@ -498,12 +499,37 @@ public void afisareMeniuClienti(PreluareDate preluareDate) throws IOException {
 
 public void autoSaveFisiere(){
     try {
-        FileWriter myWriter = new FileWriter("filename.txt");
-        myWriter.write("Files in Java might be tricky, but it is fun enough!");
-        myWriter.close();
-        System.out.println("Successfully wrote to the file.");
+        FileWriter writerBanci = new FileWriter("filename1.txt");
+        FileWriter writerClienti = new FileWriter("filename2.txt");
+        FileWriter writerTranzactii = new FileWriter("filename3.txt");
+        FileWriter writerCredite = new FileWriter("filename4.txt");
+
+        for(Banca banca : preluareDate.listaBanciCitite){
+            writerBanci.write(banca.writeToFile()+"\n");
+        }
+
+
+        for(Client client : preluareDate.listaClientiCititi) {
+            writerClienti.write(client.writeToFile()+"\n");
+        }
+
+        for(Map.Entry<Integer, Tranzactie> mt : preluareDate.mapTranzactiiCitite.entrySet())
+        {
+            writerTranzactii.write(mt.getKey()+" "+mt.getValue().writeToFile()+"\n");
+        }
+
+
+        for(Credit credit : preluareDate.listaCredite) {
+            writerCredite.write(credit.writeToFile()+"\n");
+        }
+
+        writerBanci.close();
+        writerClienti.close();
+        writerTranzactii.close();
+        writerCredite.close();
+        //System.out.println("Successfully wrote to the file.");
     } catch (IOException e) {
-        System.out.println("An error occurred.");
+        System.out.println("A aparut o eroare la salvare.");
         e.printStackTrace();
     }
 

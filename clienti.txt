@@ -1,3 +1,3 @@
-mihai 1200 true Banca1
-mihai22 12340 true Banca1
-tudor 1340 true Banca2
+mihai 1200.0 true Banca1
+mihai22 12340.0 true Banca1
+tudor 1340.0 true Banca2

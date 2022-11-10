@@ -48,4 +48,9 @@ public class Banca {
                 ", clienti=" + listaClienti +
                 '}';
     }
+
+
+    public String writeToFile() {
+        return denumire;
+    }
 }

@@ -1,2 +1,2 @@
-234 1 400 mihai mihai22
-24 0 4004 mihai mihai22
+234 1 400.0 mihai mihai22
+24 0 4004.0 mihai mihai22

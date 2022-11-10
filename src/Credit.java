@@ -74,4 +74,9 @@ public class Credit {
                 ", Suma imprumutata " + suma +
                 ", Rata lunara " + df.format(rataLunara) + " RON" ;
     }
+
+    public String writeToFile() {
+        DecimalFormat df = new DecimalFormat("#.##");
+        return id +" "+ nrRate +" "+ numeClient +" "+ df.format(rataLunara);
+    }
 }

@@ -84,4 +84,8 @@ public class Client {
                 '}';
     }
 
+    public String writeToFile(){
+        return nume +" "+ sold +" "+ contActiv +" "+ numeBanca;
+    }
+
 }

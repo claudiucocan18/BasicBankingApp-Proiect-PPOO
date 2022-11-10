@@ -49,6 +49,16 @@ public class Tranzactie {
         this.destinatar = destinatar;
     }
 
+//    public int returnTip(Tip tip){
+////        switch (tip){
+////            case Tip.PLATA:
+////                return 1;
+////        }
+//
+//        tip.ordinal();
+
+   // }
+
     @Override
     public String toString() {
 
@@ -63,5 +73,9 @@ public class Tranzactie {
                     ", Suma: " + suma+
                     ", De la " + destinatar;
         }
+    }
+
+    public String writeToFile() {
+        return tipTranzactie.ordinal() +" "+ suma +" "+ expeditor +" "+ destinatar;
     }
 }
