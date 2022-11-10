@@ -1,14 +1,15 @@
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Statistica {
 
-    Banca banca;
+    String banca;
     int nrTranzactiiPlata;
     int getNrTranzactiiIncasare;
     double sumaMedie;
-    Date data;
+    LocalDate data;
 
-    public Statistica(Banca banca, int nrTranzactiiPlata, int getNrTranzactiiIncasare, double sumaMedie, Date data) {
+    public Statistica(String banca, int nrTranzactiiPlata, int getNrTranzactiiIncasare, double sumaMedie, LocalDate data) {
         this.banca = banca;
         this.nrTranzactiiPlata = nrTranzactiiPlata;
         this.getNrTranzactiiIncasare = getNrTranzactiiIncasare;
@@ -16,11 +17,11 @@ public class Statistica {
         this.data = data;
     }
 
-    public Banca getBanca() {
+    public String getBanca() {
         return banca;
     }
 
-    public void setBanca(Banca banca) {
+    public void setBanca(String banca) {
         this.banca = banca;
     }
 
@@ -48,19 +49,19 @@ public class Statistica {
         this.sumaMedie = sumaMedie;
     }
 
-    public Date getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 
     @Override
     public String toString() {
         return  "Banca: " + banca + "\n"+
-                "Plati efectuate de clienti: " + nrTranzactiiPlata +"\n"+
-                "Plati primite de clienti: " + getNrTranzactiiIncasare +"\n"+
+                "Plati efectuate de client: " + nrTranzactiiPlata +"\n"+
+                "Plati primite de client: " + getNrTranzactiiIncasare +"\n"+
                 "Suma medie a tranzactiilor: " + sumaMedie +"\n"+
                 "Data salvarii statisticii: " + data +"\n"
                 ;

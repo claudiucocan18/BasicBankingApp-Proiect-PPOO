@@ -2,6 +2,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -15,6 +16,7 @@ boolean checkBack = false;
 
     public void afisareListaBanci(PreluareDate pdt){
         int i = 0;
+
         System.out.println("Banci:");
         preluareDate=pdt;
         for (Banca banca : preluareDate.listaBanciCitite) {
@@ -38,12 +40,19 @@ boolean checkBack = false;
             afisareMeniuClienti(preluareDate);
 
         } catch (Exception e) {
-            if(consoleIn.next().equals("c")){
+            String primit = consoleIn.next();
+
+            if(primit.equals("c")){
 
                 System.out.println("Aplicatia se inchide...");
                 System.exit(0);
                 //return;
             }
+
+//            else if(primit.equals("s")){
+//                System.out.println("Selectati banca pentru care doriti sa extrageti o situatie a tranzactiilor");
+//                afisareStatistica(consoleIn.next());
+//            }
 
             else {
                 System.out.println("Ati introdus o optiune invalida");
@@ -56,8 +65,7 @@ boolean checkBack = false;
     }
 
 
-
-public void afisareMeniuClienti(PreluareDate preluareDate) throws IOException {
+    public void afisareMeniuClienti(PreluareDate preluareDate) throws IOException {
 
         if(preluareDate.listaBanciCitite.get(indexBanca).getListaClienti().isEmpty())
         {
@@ -177,7 +185,8 @@ public void afisareMeniuClienti(PreluareDate preluareDate) throws IOException {
 
         System.out.println();
         System.out.println("+t Realizeaza o tranzactie, +c Aplica pentru un credit");
-        System.out.println("b - Inapoi, c- Parasiti aplicatia, e - Modificati detaliile contului");
+        System.out.println("b - Inapoi, c- Parasiti aplicatia");
+        System.out.println("e - Modificati detaliile contului, s - Creati un raport");
 
         Scanner consoleIn = new Scanner(System.in);
         String input = consoleIn.next();
@@ -195,6 +204,9 @@ public void afisareMeniuClienti(PreluareDate preluareDate) throws IOException {
             case "e":
                 modificareDateClient(indexClient);
 
+            case "s":
+                afisareStatistica(indexClient);
+
             default:
 
                 System.out.println("Ati introdus o optiune invalida");
@@ -206,6 +218,50 @@ public void afisareMeniuClienti(PreluareDate preluareDate) throws IOException {
                 break;
         }
 
+    }
+
+    private void afisareStatistica(int indexClient) throws IOException {
+
+        try {
+
+            Client client = preluareDate.listaClientiCititi.get(indexClient);
+
+            if (((Object) indexClient).getClass().getSimpleName().equals("Integer")) {
+
+                double sumaMedie = 0;
+                int nrPlati = 0;
+                int nrIncasari = 0;
+                LocalDate data = LocalDate.now();
+
+
+
+                for (Map.Entry<Integer, Tranzactie> mt : preluareDate.mapTranzactiiCitite.entrySet()) {
+                    if (mt.getValue().getDestinatar().equals(client.getNume())) {
+                        sumaMedie += mt.getValue().getSuma();
+                        nrIncasari++;
+                    } else if (mt.getValue().getExpeditor().equals(client.getNume())) {
+                        sumaMedie += mt.getValue().getSuma();
+                        nrPlati++;
+                    }
+
+                }
+
+                Statistica statistica = new Statistica(client.getNumeBanca(),nrPlati,nrIncasari,sumaMedie,data);
+                preluareDate.listaStatisticiCitite.add(statistica);
+                System.out.println(statistica);
+                Scanner consoleIn = new Scanner(System.in);
+                NavigareGenerala(consoleIn.next(),3);
+
+
+
+            }
+            else throw new ExceptieTipInput("Statistica nu a putut fi afisata");
+        }
+        catch (ExceptieTipInput | IOException e){
+            System.out.println(e);
+            Scanner consoleIn = new Scanner(System.in);
+            NavigareGenerala(consoleIn.next(),3);
+        }
     }
 
     private void modificareDateClient(int indexClient) throws IOException {

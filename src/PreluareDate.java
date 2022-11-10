@@ -8,6 +8,7 @@ public class PreluareDate {
     //List<Tranzactie> listaTranzactiiCitite = new ArrayList<>();
     Map<Integer, Tranzactie> mapTranzactiiCitite = new HashMap<>();
     List<Credit> listaCrediteCitite = new ArrayList<>();
+    List<Statistica> listaStatisticiCitite = new ArrayList<>();
 
 
     public void citireDate(String dateBanci, String dateClienti, String dateTranzactii, String dateCredite) throws IOException {
