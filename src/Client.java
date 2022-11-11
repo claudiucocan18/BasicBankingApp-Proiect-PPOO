@@ -17,6 +17,7 @@ public class Client {
     private boolean contActiv;
     private String numeBanca;
 
+
     private Map<Integer,Tranzactie> listaTranzactii = new HashMap<>();
     private static int[] salariiAnCurent =
             {3000,3000,3000,3000,4200,4200,4200,4200,4200,4200,4200,4200};//new int[12]; //de adaugat
