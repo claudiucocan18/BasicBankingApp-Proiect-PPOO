@@ -22,6 +22,7 @@ public class Credit {
         this.rataLunara=0.0;
     }
 
+
     public Credit(int id, int nrRate, String numeClient, Double rataLunara, Double suma) {
         this.id = id;
         this.nrRate = nrRate;

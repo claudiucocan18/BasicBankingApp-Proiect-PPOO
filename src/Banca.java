@@ -14,7 +14,6 @@ public class Banca {
             {5.2,5.2,5.2,5.0,5.0,5.0,5.0,6.2,6.2,6.2,6.0,6.1};//new double[12]; // de adaugat
     private List<Client> listaClienti = new ArrayList<>();
 
-
     public Banca(String denumire) {
         this.denumire = denumire;
         this.listaClienti = listaClienti;

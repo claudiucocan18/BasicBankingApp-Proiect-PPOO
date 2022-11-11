@@ -24,6 +24,7 @@ public class Statistica {
     }
 
 
+
     public String getBanca() {
         return banca;
     }

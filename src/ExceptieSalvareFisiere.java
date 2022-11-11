@@ -6,6 +6,7 @@ public class ExceptieSalvareFisiere extends Exception{
         super(mesaj);
     }
 
+
 //        switch (mesaj){
 //
 //            case "banca":

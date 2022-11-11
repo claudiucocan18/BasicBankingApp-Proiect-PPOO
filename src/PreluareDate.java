@@ -10,7 +10,6 @@ public class PreluareDate {
     List<Credit> listaCrediteCitite = new ArrayList<>();
     List<Statistica> listaStatisticiCitite = new ArrayList<>();
 
-
     public void citireDate(String dateBanci, String dateClienti, String dateTranzactii, String dateCredite, String dateStatistici) throws IOException {
 
         File myObj;
