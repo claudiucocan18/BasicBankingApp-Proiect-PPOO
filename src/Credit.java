@@ -17,12 +17,12 @@ public class Credit {
 
     }
 
-    public Credit(int id, int nrRate, String numeClient, Double suma) {
+    public Credit(int id, int nrRate, String numeClient, Double rataLunara, Double suma) {
         this.id = id;
         this.nrRate = nrRate;
         this.numeClient = numeClient;
         this.suma = suma;
-        this.rataLunara=0.0;
+        this.rataLunara=rataLunara;
     }
 
 
@@ -71,12 +71,12 @@ public class Credit {
         DecimalFormat df = new DecimalFormat("#.##");
         return  "Id: " + id +
                 ", Numar de rate " + nrRate +
-                ", Suma imprumutata " + suma +
+                ", Suma imprumutata " + suma + " RON" +
                 ", Rata lunara " + df.format(rataLunara) + " RON" ;
     }
 
     public String writeToFile() {
         DecimalFormat df = new DecimalFormat("#.##");
-        return id +" "+ nrRate +" "+ numeClient +" "+ df.format(rataLunara);
+        return id +" "+ nrRate +" "+ numeClient +" "+ df.format(rataLunara) +" "+ df.format(suma);
     }
 }

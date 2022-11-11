@@ -81,9 +81,10 @@ public class PreluareDate {
             int idCredit = inputCredite.nextInt();
             int nrRate = inputCredite.nextInt();
             String numeClientCredit = inputCredite.next();
+            Double rataLunaraCredit = inputCredite.nextDouble();
             Double sumaCredit = inputCredite.nextDouble();
 
-            Credit credit = new Credit(idCredit, nrRate, numeClientCredit, sumaCredit);
+            Credit credit = new Credit(idCredit, nrRate, numeClientCredit, rataLunaraCredit, sumaCredit);
             listaCrediteCitite.add(credit);
 
         }
@@ -96,10 +97,12 @@ public class PreluareDate {
         while(inputStatistici.hasNext()) {
 
             String bancaStats = inputStatistici.next();
-            int nrTranzactiiPlata= inputStatistici.nextInt();
-            int nrTranzactiiIncasare= inputStatistici.nextInt();
+            int nrTranzactiiPlata = inputStatistici.nextInt();
+            int nrTranzactiiIncasare = inputStatistici.nextInt();
             double sumaMedieStats = inputStatistici.nextDouble();
-            String data = inputStatistici.next();
+            String dData = inputStatistici.next();
+            String dOra = inputStatistici.next();
+            String data = dData+" "+dOra;
 
 
             Statistica statistica = new Statistica(bancaStats, nrTranzactiiPlata, nrTranzactiiIncasare, sumaMedieStats, data);

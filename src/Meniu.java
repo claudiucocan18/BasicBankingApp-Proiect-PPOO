@@ -145,7 +145,7 @@ boolean checkBack = false;
 
     public void afisareTranzactii(int indexClient) throws IOException {
 
-        int i=0;
+        int i=1;
         System.out.println("--------------------------------");
         System.out.println("Tranzactii: ");
         System.out.println();
@@ -169,8 +169,11 @@ boolean checkBack = false;
         System.out.println();
         int ic =0;
         for (Credit credit : preluareDate.listaCrediteCitite) {
-            System.out.println(credit);
-            ic++;
+            if(credit.getNumeClient().equals(c.getNume())) {
+
+                System.out.println(credit);
+                ic++;
+            }
 
         }
 
@@ -186,8 +189,8 @@ boolean checkBack = false;
 
         System.out.println();
         System.out.println("+t Realizeaza o tranzactie, +c Aplica pentru un credit");
-        System.out.println("b - Inapoi, c- Parasiti aplicatia");
         System.out.println("e - Modificati detaliile contului, s - Creati un raport");
+        System.out.println("b - Inapoi, c- Parasiti aplicatia");
 
         Scanner consoleIn = new Scanner(System.in);
         String input = consoleIn.next();
@@ -209,9 +212,10 @@ boolean checkBack = false;
                 afisareStatistica(indexClient);
 
             default:
-
-                System.out.println("Ati introdus o optiune invalida");
-                System.out.println("Introduceti orice tasta");
+                if(checkBack!=true||checkClose!=true) {
+                    System.out.println("Ati introdus o optiune invalida");
+                    System.out.println("Introduceti orice tasta");
+                }
                // meniufinal();
                 NavigareGenerala(input,3);
                 //afisareDateClient(indexClient);
@@ -285,14 +289,19 @@ boolean checkBack = false;
         String primit = consoleIn.next();
 
         switch (primit){
-            case "1":
+            case "1": {
                 System.out.println("Introdu noul nume:");
-                String numeNouClient= consoleIn.next();
+                String numeNouClient = consoleIn.next();
 
-                for(Map.Entry<Integer, Tranzactie> mt : preluareDate.mapTranzactiiCitite.entrySet())
-                {
-                    if( mt.getValue().getExpeditor().equals(preluareDate.listaClientiCititi.get(indexClient).getNume()))
-                              mt.getValue().setExpeditor(numeNouClient);
+                for (Credit credit : preluareDate.listaCrediteCitite) {
+                    if (credit.getNumeClient().equals(preluareDate.listaClientiCititi.get(indexClient).getNume())) {
+                        credit.setNumeClient(numeNouClient);
+                    }
+                }
+
+                for (Map.Entry<Integer, Tranzactie> mt : preluareDate.mapTranzactiiCitite.entrySet()) {
+                    if (mt.getValue().getExpeditor().equals(preluareDate.listaClientiCititi.get(indexClient).getNume()))
+                        mt.getValue().setExpeditor(numeNouClient);
 //                    if(mt.getValue().getDestinatar().equals(preluareDate.listaClientiCititi.get(indexClient).getNume()))
 //                        mt.getValue().setDestinatar(numeNouClient);
 
@@ -300,28 +309,46 @@ boolean checkBack = false;
 
                 preluareDate.listaClientiCititi.get(indexClient).setNume(numeNouClient);
                 System.out.println("Numele a fost modificat");
+
                 afisareDateClient(indexClient);
                 meniufinal();
                 break;
+            }
 
-            case "2":
+            case "2": {
                 preluareDate.listaClientiCititi.get(indexClient).setContActiv(false);
                 System.out.println("Contul a fost inactivat");
 
                 System.out.println("Doriti sa stergeti contul definitiv? Aceasta actiune este ireversibila (y/n)");
                 String raspuns = consoleIn.next();
-                switch (raspuns){
-                    case "y":
+                switch (raspuns) {
+                    case "y": {
 
+
+                       // stergem intai credite si tranzactii aferente clientului eliminat
+                        //int ind = preluareDate.listaCrediteCitite.indexOf(credit);
+                        preluareDate.listaCrediteCitite.removeIf(credit -> credit.getNumeClient()
+                                .equals(preluareDate.listaClientiCititi.get(indexClient).getNume()));
+
+
+//                        for (Map.Entry<Integer, Tranzactie> mt : preluareDate.mapTranzactiiCitite.entrySet()) {
+//                            if (mt.getValue().getExpeditor().equals(preluareDate.listaClientiCititi.get(indexClient).getNume())) {
+//                                System.out.println(mt.getKey());
+//                                preluareDate.mapTranzactiiCitite.remove(mt.getKey());
+//
+//                            }
+//                        }
 
                         preluareDate.listaClientiCititi.remove(indexClient);
                         preluareDate.listaBanciCitite.get(indexBanca).getListaClienti().remove(indexClient);
+
+
                         System.out.println("Contul a fost sters");
                         afisareListaClienti(indexBanca);
                         //afisareDateClient(indexClient);
                         afisareMeniuClienti(preluareDate);
 
-
+                    }
                     default:
                         System.out.println("Contul de client a fost doar inactivat");
                         afisareDateClient(indexClient);
@@ -330,7 +357,7 @@ boolean checkBack = false;
                 afisareDateClient(indexClient);
                 meniufinal();
                 break;
-
+            }
             default:
                 System.out.println("Optiune invalida. Introduceti orice tasta pentru a va intoarce.");
                 NavigareGenerala(primit,3);
@@ -535,7 +562,7 @@ boolean checkBack = false;
                 String s = consoleIn.next();
                 System.out.println("--------------------------------");
                 System.out.println("Optiune inexistenta");
-               // System.out.println("b - Inapoi, c - Parasiti aplicatia");
+                System.out.println("b - Inapoi, c - Parasiti aplicatia");
                // System.out.println("--------------------------------");
 
                 switch (nivel){
@@ -564,11 +591,11 @@ boolean checkBack = false;
 
 public void autoSaveFisiere(){
     try {
-        FileWriter writerBanci = new FileWriter("filename1.txt");
-        FileWriter writerClienti = new FileWriter("filename2.txt");
-        FileWriter writerTranzactii = new FileWriter("filename3.txt");
-        FileWriter writerCredite = new FileWriter("filename4.txt");
-        FileWriter writerStatistici = new FileWriter("filename5.txt");
+        FileWriter writerBanci = new FileWriter("banci.txt");
+        FileWriter writerClienti = new FileWriter("clienti.txt");
+        FileWriter writerTranzactii = new FileWriter("tranzactii.txt");
+        FileWriter writerCredite = new FileWriter("credite.txt");
+        FileWriter writerStatistici = new FileWriter("statistici.txt");
 
         for(Banca banca : preluareDate.listaBanciCitite){
             writerBanci.write(banca.writeToFile()+"\n");
@@ -590,7 +617,7 @@ public void autoSaveFisiere(){
         }
 
        for (Statistica statistica : preluareDate.listaStatisticiCitite){
-           System.out.println("Salveaza aiic stst");
+
            writerStatistici.write(statistica.writeToFile()+"\n");
        }
 

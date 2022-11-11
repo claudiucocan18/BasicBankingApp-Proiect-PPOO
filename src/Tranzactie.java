@@ -63,8 +63,8 @@ public class Tranzactie {
 //        else {
             return "Tranzactie de " +
                     "tip " + tipTranzactie +
-                    ", Suma: " + df.format(suma)+
-                    ", Sursa: " + expeditor;
+                    ", Suma: " + df.format(suma);
+//                    +", Sursa: " + expeditor;
         }
    // }
 
