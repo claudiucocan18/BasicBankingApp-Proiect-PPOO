@@ -3,6 +3,15 @@ import java.util.*;
 
 public class Client {
 
+    /**Client
+     * private String nume;
+     *     private Double sold;
+     *     private boolean contActiv;
+     *     private String numeBanca;
+     *     private Map<Integer,Tranzactie> listaTranzactii;
+     *     private static int[] salariiAnCurent;
+     */
+
     private String nume;
     private Double sold;
     private boolean contActiv;

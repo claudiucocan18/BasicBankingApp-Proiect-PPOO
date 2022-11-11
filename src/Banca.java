@@ -3,6 +3,11 @@ import java.util.*;
 
 public class Banca {
 
+    /**Banca
+     * private String denumire;
+     * private static double[] valoareLunaraDobanda;
+     * private List<Client> listaClienti;
+     */
     private String denumire;
 
     private static double[] valoareLunaraDobanda =

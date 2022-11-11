@@ -4,7 +4,12 @@ enum Tip {INCASARE,PLATA,RAMBURSARE}
 
 public class Tranzactie {
 
-
+    /**Tranzactie
+     * private Tip tipTranzactie;
+     * private Double suma;
+     * private String expeditor;
+     * private String deLa;
+     */
     private Tip tipTranzactie;
     private Double suma;
     private String expeditor;

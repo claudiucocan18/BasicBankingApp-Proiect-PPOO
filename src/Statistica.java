@@ -2,6 +2,13 @@ import java.text.DecimalFormat;
 
 public class Statistica {
 
+    /**Statistica
+     * String banca;
+     *     int nrTranzactiiPlata;
+     *     int nrTranzactiiIncasare;
+     *     double sumaMedie;
+     *     String data;
+     */
     String banca;
     int nrTranzactiiPlata;
     int nrTranzactiiIncasare;

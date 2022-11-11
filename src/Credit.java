@@ -1,7 +1,13 @@
 import java.text.DecimalFormat;
 
 public class Credit {
-
+    /**Credit
+     * int id;
+     *     int nrRate;
+     *     String numeClient;
+     *     Double suma;
+     *     Double rataLunara;
+     */
     int id;
     int nrRate;
     String numeClient;
