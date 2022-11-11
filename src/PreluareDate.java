@@ -11,7 +11,7 @@ public class PreluareDate {
     List<Statistica> listaStatisticiCitite = new ArrayList<>();
 
 
-    public void citireDate(String dateBanci, String dateClienti, String dateTranzactii, String dateCredite) throws IOException {
+    public void citireDate(String dateBanci, String dateClienti, String dateTranzactii, String dateCredite, String dateStatistici) throws IOException {
 
         File myObj;
 
@@ -59,9 +59,12 @@ public class PreluareDate {
             int tipTranzactieIndex = inputTranzactii.nextInt();
             Double suma = inputTranzactii.nextDouble();
             String numeClientTranzactie = inputTranzactii.next();
-            String destinatarTranzactie = inputTranzactii.next();
-
-            Tranzactie t1 = new Tranzactie(tipFromInteger(tipTranzactieIndex),suma, numeClientTranzactie, destinatarTranzactie);
+//            String destinatarTranzactie = "";
+//            if(tipTranzactieIndex==1 || tipTranzactieIndex==2) {
+//                destinatarTranzactie = inputTranzactii.next();
+//            }
+            Tranzactie t1 = new Tranzactie(tipFromInteger(tipTranzactieIndex),suma, numeClientTranzactie);//, destinatarTranzactie);
+            //t1.setDeLa(destinatarTranzactie);
             //listaTranzactiiCitite.add(t1);
             mapTranzactiiCitite.put(id,t1);
 
@@ -80,12 +83,30 @@ public class PreluareDate {
             String numeClientCredit = inputCredite.next();
             Double sumaCredit = inputCredite.nextDouble();
 
-
             Credit credit = new Credit(idCredit, nrRate, numeClientCredit, sumaCredit);
             listaCrediteCitite.add(credit);
 
         }
         inputCredite.close();
+
+//stats
+        myObj = new File(dateStatistici);
+        Scanner inputStatistici = new Scanner(myObj);
+
+        while(inputStatistici.hasNext()) {
+
+            String bancaStats = inputStatistici.next();
+            int nrTranzactiiPlata= inputStatistici.nextInt();
+            int nrTranzactiiIncasare= inputStatistici.nextInt();
+            double sumaMedieStats = inputStatistici.nextDouble();
+            String data = inputStatistici.next();
+
+
+            Statistica statistica = new Statistica(bancaStats, nrTranzactiiPlata, nrTranzactiiIncasare, sumaMedieStats, data);
+            listaStatisticiCitite.add(statistica);
+
+        }
+        inputStatistici.close();
 
 
 //        for(Tranzactie c: listaTranzactiiCitite){
@@ -129,8 +150,10 @@ public class PreluareDate {
                 for (Client c : listaClientiCititi) {
                     for (Map.Entry<Integer, Tranzactie> mt : mapTranzactiiCitite.entrySet()) {
 
-                        if (mt.getValue().equals(c.getNume()))
+                        if (mt.getValue().getExpeditor().equals(c.getNume()))
                             c.getListaTranzactii().put(mt.getKey(), mt.getValue());
+//                        else if (mt.getValue().getDestinatar().equals(c.getNume()))
+//                            c.getListaTranzactii().put(mt.getKey(), mt.getValue());
                     }
                 }
             }

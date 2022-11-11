@@ -1,20 +1,21 @@
+import java.text.DecimalFormat;
+
 enum Tip {INCASARE,PLATA,RAMBURSARE}
 
 public class Tranzactie {
 
 
-
     private Tip tipTranzactie;
     private Double suma;
     private String expeditor;
-    private String destinatar;
+    private String deLa;
 
 
-    public Tranzactie(Tip tipTranzactie, Double suma, String expeditor, String destinatar) {
+    public Tranzactie(Tip tipTranzactie, Double suma, String expeditor) {
         this.tipTranzactie = tipTranzactie;
         this.suma = suma;
         this.expeditor = expeditor;
-        this.destinatar = destinatar;
+        //this.destinatar = destinatar;
     }
 
     public Tip getTipTranzactie() {
@@ -41,41 +42,34 @@ public class Tranzactie {
         this.expeditor = expeditor;
     }
 
-    public String getDestinatar() {
-        return destinatar;
+    public String getDeLa() {
+        return deLa;
     }
 
-    public void setDestinatar(String destinatar) {
-        this.destinatar = destinatar;
+    public void setDeLa(String deLa) {
+        this.deLa = deLa;
     }
 
-//    public int returnTip(Tip tip){
-////        switch (tip){
-////            case Tip.PLATA:
-////                return 1;
-////        }
-//
-//        tip.ordinal();
-
-   // }
 
     @Override
     public String toString() {
+        DecimalFormat df = new DecimalFormat("#.##");
 
-        if(this.tipTranzactie.equals(Tip.PLATA))
+//        if(tipTranzactie.equals(Tip.PLATA) || tipTranzactie.equals(Tip.RAMBURSARE))
+//            return "Tranzactie de " +
+//                    "tip " + tipTranzactie +
+//                    ", Suma: " + df.format(suma)+", Catre: "+ deLa;
+//
+//        else {
             return "Tranzactie de " +
                     "tip " + tipTranzactie +
-                    ", Suma: " + suma+
-                    ", Catre " + destinatar;
-        else {
-            return "Tranzactie de " +
-                    "tip " + tipTranzactie +
-                    ", Suma: " + suma+
-                    ", De la " + destinatar;
+                    ", Suma: " + df.format(suma)+
+                    ", Sursa: " + expeditor;
         }
-    }
+   // }
 
     public String writeToFile() {
-        return tipTranzactie.ordinal() +" "+ suma +" "+ expeditor +" "+ destinatar;
+        DecimalFormat df = new DecimalFormat("#.##");
+        return tipTranzactie.ordinal() +" "+ df.format(suma) +" "+ expeditor;// +" "+ destinatar;
     }
 }

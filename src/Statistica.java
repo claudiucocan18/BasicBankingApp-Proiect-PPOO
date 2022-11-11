@@ -1,18 +1,17 @@
-import java.time.LocalDate;
-import java.util.Date;
+import java.text.DecimalFormat;
 
 public class Statistica {
 
     String banca;
     int nrTranzactiiPlata;
-    int getNrTranzactiiIncasare;
+    int nrTranzactiiIncasare;
     double sumaMedie;
-    LocalDate data;
+    String data;
 
-    public Statistica(String banca, int nrTranzactiiPlata, int getNrTranzactiiIncasare, double sumaMedie, LocalDate data) {
+    public Statistica(String banca, int nrTranzactiiPlata, int nrTranzactiiIncasare, double sumaMedie, String data) {
         this.banca = banca;
         this.nrTranzactiiPlata = nrTranzactiiPlata;
-        this.getNrTranzactiiIncasare = getNrTranzactiiIncasare;
+        this.nrTranzactiiIncasare = nrTranzactiiIncasare;
         this.sumaMedie = sumaMedie;
         this.data = data;
     }
@@ -33,12 +32,12 @@ public class Statistica {
         this.nrTranzactiiPlata = nrTranzactiiPlata;
     }
 
-    public int getGetNrTranzactiiIncasare() {
-        return getNrTranzactiiIncasare;
+    public int getNrTranzactiiIncasare() {
+        return nrTranzactiiIncasare;
     }
 
-    public void setGetNrTranzactiiIncasare(int getNrTranzactiiIncasare) {
-        this.getNrTranzactiiIncasare = getNrTranzactiiIncasare;
+    public void setNrTranzactiiIncasare(int nrTranzactiiIncasare) {
+        this.nrTranzactiiIncasare = nrTranzactiiIncasare;
     }
 
     public double getSumaMedie() {
@@ -49,22 +48,27 @@ public class Statistica {
         this.sumaMedie = sumaMedie;
     }
 
-    public LocalDate getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(LocalDate data) {
+    public void setData(String data) {
         this.data = data;
     }
 
     @Override
     public String toString() {
+        DecimalFormat df = new DecimalFormat("#.##");
         return  "Banca: " + banca + "\n"+
                 "Plati efectuate de client: " + nrTranzactiiPlata +"\n"+
-                "Plati primite de client: " + getNrTranzactiiIncasare +"\n"+
-                "Suma medie a tranzactiilor: " + sumaMedie +"\n"+
-                "Data salvarii statisticii: " + data +"\n"
-                ;
+                "Plati primite de client: " + nrTranzactiiIncasare +"\n"+
+                "Suma medie a tranzactiilor: " + df.format(sumaMedie) +"\n"+
+                "Data salvarii statisticii: " + data +"\n";
 
+    }
+
+    public String writeToFile() {
+        DecimalFormat df = new DecimalFormat("#.##");
+        return banca +" "+  nrTranzactiiPlata +" "+ nrTranzactiiIncasare +" "+  df.format(sumaMedie) +" "+ data;
     }
 }

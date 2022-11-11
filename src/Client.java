@@ -1,3 +1,4 @@
+import java.text.DecimalFormat;
 import java.util.*;
 
 public class Client {
@@ -74,10 +75,11 @@ public class Client {
 
     @Override
     public String toString() {
+        DecimalFormat df = new DecimalFormat("#.##");
         return "Client{" +
                 "nume='" + nume + '\'' +
                 ", salariiAnCurent=" + Arrays.toString(salariiAnCurent) +
-                ", sold=" + sold +
+                ", sold=" + df.format(sold) +
                 ", contActiv=" + contActiv +
                 ", listaTranzactii=" + listaTranzactii +
                 ", numeBanca='" + numeBanca + '\'' +
@@ -85,6 +87,7 @@ public class Client {
     }
 
     public String writeToFile(){
+        DecimalFormat df = new DecimalFormat("#.##");
         return nume +" "+ sold +" "+ contActiv +" "+ numeBanca;
     }
 

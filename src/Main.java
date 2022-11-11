@@ -1,6 +1,10 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Main {
@@ -8,10 +12,11 @@ public class Main {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 
 
+
         PreluareDate preluareDate = new PreluareDate();
         Meniu m1 = new Meniu();
 //
-        preluareDate.citireDate("banci.txt", "clienti.txt", "tranzactii.txt", "credite.txt");
+        preluareDate.citireDate("banci.txt", "clienti.txt", "tranzactii.txt", "credite.txt", "statistici.txt");
         preluareDate.SincronizareDate();
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

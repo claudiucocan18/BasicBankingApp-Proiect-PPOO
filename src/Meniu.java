@@ -1,5 +1,6 @@
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Date;
@@ -153,7 +154,7 @@ boolean checkBack = false;
         boolean existaTranzactii = false;
 
             for (Map.Entry<Integer, Tranzactie> mt : preluareDate.mapTranzactiiCitite.entrySet()) {
-                if (c.getNume().equals(mt.getValue().getExpeditor())) {
+                if ( c.getNume().equals(mt.getValue().getExpeditor()) ) {
                     System.out.println(i + ") " + "Id: " + mt.getKey() + " " + mt.getValue());
                     i++;
                     existaTranzactii=true;
@@ -231,28 +232,35 @@ boolean checkBack = false;
                 double sumaMedie = 0;
                 int nrPlati = 0;
                 int nrIncasari = 0;
-                LocalDate data = LocalDate.now();
+                //LocalDateTime data = LocalDateTime.now().;
 
+                for (var entry : preluareDate.mapTranzactiiCitite.entrySet()) {
+//                    if (entry.getValue().getDestinatar().equals(client.getNume())) {
+//                        sumaMedie += entry.getValue().getSuma();
+//                        nrIncasari++;
+//
+//                    }
+                     if (entry.getValue().getExpeditor().equals(client.getNume())) {
+                        sumaMedie += entry.getValue().getSuma();
 
+                        if(entry.getValue().getTipTranzactie().equals(Tip.PLATA))
+                            nrPlati++;
 
-                for (Map.Entry<Integer, Tranzactie> mt : preluareDate.mapTranzactiiCitite.entrySet()) {
-                    if (mt.getValue().getDestinatar().equals(client.getNume())) {
-                        sumaMedie += mt.getValue().getSuma();
-                        nrIncasari++;
-                    } else if (mt.getValue().getExpeditor().equals(client.getNume())) {
-                        sumaMedie += mt.getValue().getSuma();
-                        nrPlati++;
+                        else nrIncasari++;
                     }
 
                 }
+                sumaMedie/=nrIncasari+nrPlati;
 
-                Statistica statistica = new Statistica(client.getNumeBanca(),nrPlati,nrIncasari,sumaMedie,data);
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                Date data = new Date();
+
+                Statistica statistica = new Statistica(client.getNumeBanca(),nrPlati,nrIncasari,sumaMedie,formatter.format(data));
                 preluareDate.listaStatisticiCitite.add(statistica);
                 System.out.println(statistica);
                 Scanner consoleIn = new Scanner(System.in);
-                NavigareGenerala(consoleIn.next(),3);
-
-
+                System.out.println("b - Inapoi, c- Parasiti aplicatia");
+                NavigareGenerala(consoleIn.next(),4);
 
             }
             else throw new ExceptieTipInput("Statistica nu a putut fi afisata");
@@ -260,7 +268,8 @@ boolean checkBack = false;
         catch (ExceptieTipInput | IOException e){
             System.out.println(e);
             Scanner consoleIn = new Scanner(System.in);
-            NavigareGenerala(consoleIn.next(),3);
+            System.out.println("b - Inapoi, c- Parasiti aplicatia");
+            NavigareGenerala(consoleIn.next(),4);
         }
     }
 
@@ -284,8 +293,8 @@ boolean checkBack = false;
                 {
                     if( mt.getValue().getExpeditor().equals(preluareDate.listaClientiCititi.get(indexClient).getNume()))
                               mt.getValue().setExpeditor(numeNouClient);
-                    if(mt.getValue().getDestinatar().equals(preluareDate.listaClientiCititi.get(indexClient).getNume()))
-                        mt.getValue().setDestinatar(numeNouClient);
+//                    if(mt.getValue().getDestinatar().equals(preluareDate.listaClientiCititi.get(indexClient).getNume()))
+//                        mt.getValue().setDestinatar(numeNouClient);
 
                 }
 
@@ -420,8 +429,9 @@ boolean checkBack = false;
                 if( client.getSold() >= suma ) {
                     client.setSold(client.getSold() - suma);
 
-                    Tranzactie tranzactie = new Tranzactie(Tip.PLATA, suma, numeClient, numeDestinatar);
-                    Tranzactie tranzactieInversa = new Tranzactie(Tip.INCASARE, suma, numeDestinatar, numeClient);
+                    Tranzactie tranzactie = new Tranzactie(Tip.PLATA, suma, numeClient);//, numeDestinatar);
+                    //tranzactie.setDeLa(numeDestinatar);
+                    Tranzactie tranzactieInversa = new Tranzactie(Tip.INCASARE, suma, numeDestinatar);//, numeClient);
 
                     //int idTranzactie = (int) (1000+Math.random() * 1000);
                     preluareDate.mapTranzactiiCitite.put((int) (1000 + Math.random() * 1000), tranzactie);
@@ -510,9 +520,9 @@ boolean checkBack = false;
                         checkBack = true;
                         break;
 
-//                    case 4:
-//                        afisareTranzactii(indexClient);
-//                        meniufinal();
+                    case 4:
+                        afisareDateClient(indexClient);
+                        meniufinal();
                     default:
                         System.out.println("Nivelul este necunoscut");
                         break;
@@ -558,6 +568,7 @@ public void autoSaveFisiere(){
         FileWriter writerClienti = new FileWriter("filename2.txt");
         FileWriter writerTranzactii = new FileWriter("filename3.txt");
         FileWriter writerCredite = new FileWriter("filename4.txt");
+        FileWriter writerStatistici = new FileWriter("filename5.txt");
 
         for(Banca banca : preluareDate.listaBanciCitite){
             writerBanci.write(banca.writeToFile()+"\n");
@@ -578,10 +589,16 @@ public void autoSaveFisiere(){
             writerCredite.write(credit.writeToFile()+"\n");
         }
 
+       for (Statistica statistica : preluareDate.listaStatisticiCitite){
+           System.out.println("Salveaza aiic stst");
+           writerStatistici.write(statistica.writeToFile()+"\n");
+       }
+
         writerBanci.close();
         writerClienti.close();
         writerTranzactii.close();
         writerCredite.close();
+        writerStatistici.close();
         //System.out.println("Successfully wrote to the file.");
     } catch (IOException e) {
         System.out.println("A aparut o eroare la salvare.");
