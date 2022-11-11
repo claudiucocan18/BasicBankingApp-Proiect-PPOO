@@ -73,3 +73,4 @@ public class Tranzactie {
         return tipTranzactie.ordinal() +" "+ df.format(suma) +" "+ expeditor;// +" "+ destinatar;
     }
 }
+//

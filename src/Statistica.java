@@ -72,3 +72,4 @@ public class Statistica {
         return banca +" "+  nrTranzactiiPlata +" "+ nrTranzactiiIncasare +" "+  df.format(sumaMedie) +" "+ data;
     }
 }
+//

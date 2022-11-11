@@ -46,6 +46,7 @@ boolean checkBack = false;
             if(primit.equals("c")){
 
                 System.out.println("Aplicatia se inchide...");
+                autoSaveFisiere();
                 System.exit(0);
                 //return;
             }
@@ -508,6 +509,7 @@ boolean checkBack = false;
         switch (consoleIn.next()){
             case "c": {
                 System.out.println("Aplicatia se inchide...");
+                autoSaveFisiere();
                 System.exit(0);
                 // return;
             }
@@ -635,3 +637,4 @@ public void autoSaveFisiere(){
 }
 
 }
+//
