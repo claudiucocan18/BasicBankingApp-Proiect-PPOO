@@ -15,7 +15,6 @@ public class Banca {
         this.listaClienti = listaClienti;
     }
 
-
     public String getDenumire() {
         return denumire;
     }

@@ -16,6 +16,7 @@ public class Statistica {
         this.data = data;
     }
 
+
     public String getBanca() {
         return banca;
     }

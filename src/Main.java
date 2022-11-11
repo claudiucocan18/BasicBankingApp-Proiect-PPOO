@@ -12,7 +12,6 @@ public class Main {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 
 
-
         PreluareDate preluareDate = new PreluareDate();
         Meniu m1 = new Meniu();
 //

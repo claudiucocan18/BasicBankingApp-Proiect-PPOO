@@ -12,7 +12,6 @@ public class Client {
     private static int[] salariiAnCurent =
             {3000,3000,3000,3000,4200,4200,4200,4200,4200,4200,4200,4200};//new int[12]; //de adaugat
 
-
     public Client() {
     }
 

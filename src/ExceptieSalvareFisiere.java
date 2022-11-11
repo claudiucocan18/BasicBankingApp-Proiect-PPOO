@@ -8,7 +8,6 @@ public class ExceptieSalvareFisiere extends Exception{
 
 //        switch (mesaj){
 //
-//
 //            case "banca":
 //                System.out.println("A aparut o problema la citirea fisierului pentru banci");
 //

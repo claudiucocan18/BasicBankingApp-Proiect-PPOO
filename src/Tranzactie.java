@@ -11,7 +11,6 @@ public class Tranzactie {
     private String deLa;
 
 
-
     public Tranzactie(Tip tipTranzactie, Double suma, String expeditor) {
         this.tipTranzactie = tipTranzactie;
         this.suma = suma;

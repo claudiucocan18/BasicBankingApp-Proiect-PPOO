@@ -14,7 +14,6 @@ public class PreluareDate {
     public void citireDate(String dateBanci, String dateClienti, String dateTranzactii, String dateCredite, String dateStatistici) throws IOException {
 
         File myObj;
-
         // read banci
 
             myObj = new File(dateBanci);

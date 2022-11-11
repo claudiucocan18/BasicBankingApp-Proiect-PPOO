@@ -15,6 +15,7 @@ int indexClient;
 boolean checkClose = false;
 boolean checkBack = false;
 
+
     public void afisareListaBanci(PreluareDate pdt){
         int i = 0;
 
