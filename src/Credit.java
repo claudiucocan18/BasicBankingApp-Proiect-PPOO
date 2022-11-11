@@ -80,3 +80,4 @@ public class Credit {
         return id +" "+ nrRate +" "+ numeClient +" "+ df.format(rataLunara) +" "+ df.format(suma);
     }
 }
+
