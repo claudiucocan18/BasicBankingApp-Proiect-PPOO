@@ -23,9 +23,27 @@ public class Main {
 
         Scanner consoleIn = new Scanner(System.in);
 
-        System.out.println("x - Intrati in aplicatie, c - Parasiti aplicatia");
+        //ex-switch
 
-        //int consoleLvl = 0;
+
+        m1.afisareMeniuBanci(preluareDate);
+
+            }
+
+
+
+}
+
+
+//dobanda banca
+//comision
+//tranzactii
+//clienti
+
+
+//System.out.println("x - Intrati in aplicatie, c - Parasiti aplicatia");
+
+//int consoleLvl = 0;
 
 //        while (1 == 1) {
 //
@@ -81,20 +99,3 @@ public class Main {
 //
 //            }
 //        }
-
-        m1.afisareMeniuBanci(preluareDate);
-
-            }
-//afara main
-
-
-
-
-
-}
-
-
-//dobanda banca
-//comision
-//tranzactii
-//clienti

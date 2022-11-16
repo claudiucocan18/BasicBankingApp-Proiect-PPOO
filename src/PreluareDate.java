@@ -10,6 +10,8 @@ public class PreluareDate {
     List<Credit> listaCrediteCitite = new ArrayList<>();
     List<Statistica> listaStatisticiCitite = new ArrayList<>();
 
+    static Locale locale = Locale.ENGLISH;
+
     public void citireDate(String dateBanci, String dateClienti, String dateTranzactii, String dateCredite, String dateStatistici) throws IOException {
 
         File myObj;
@@ -32,6 +34,7 @@ public class PreluareDate {
 
         myObj = new File(dateClienti);
         Scanner inputClienti = new Scanner(myObj);
+        //inputClienti.useLocale(Locale.ENGLISH);
 
         while(inputClienti.hasNext()) {
 
@@ -40,7 +43,7 @@ public class PreluareDate {
             Boolean activ = inputClienti.nextBoolean();
             String numeBancaClient = inputClienti.next();
 
-            Client c1 = new Client(numeClient, sold,activ, numeBancaClient);
+            Client c1 = new Client(numeClient, sold, activ, numeBancaClient);
             listaClientiCititi.add(c1);
 
         }
@@ -110,9 +113,6 @@ public class PreluareDate {
         inputStatistici.close();
 
 
-//        for(Tranzactie c: listaTranzactiiCitite){
-//            System.out.println(c.getSuma());
-//        }
 
     }
 

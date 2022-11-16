@@ -97,7 +97,7 @@ public class Client {
 
     public String writeToFile(){
         DecimalFormat df = new DecimalFormat("#.##");
-        return nume +" "+ sold +" "+ contActiv +" "+ numeBanca;
+        return nume +" "+ df.format(sold) +" "+ contActiv +" "+ numeBanca;
     }
 
 }
